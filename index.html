@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#102126"><title>B54 · Pump Panel Practice</title></head>
+<body>
+<div id="app">
+  <header><div class="brand"><span class="badge">B54</span><div><h1>Pump panel practice</h1><p>Explore the truck. Get familiar with the controls.</p></div></div><button id="reset">Reset controls</button></header>
+  <main>
+    <section class="viewer" aria-label="Interactive three dimensional B54 truck">
+      <div class="viewbar"><div class="cameras" aria-label="Camera views"><button data-view="truck" class="active">Whole truck</button><button data-view="front">Front</button><button data-view="rear">Rear</button><button data-view="pump">Pump panel</button></div><span id="load-status" role="status">Loading B54…</span></div>
+      <div id="canvas-wrap"><canvas id="scene" aria-label="Drag the truck to orbit. Select and drag a pump handle to operate it."></canvas><div id="loading">Loading the B54 model…</div><div class="scene-hint">Drag empty space to orbit · Scroll to zoom</div></div>
+      <div class="footnote">Photo-informed model · proportions and travel approximate · no pump simulation</div>
+    </section>
+    <aside>
+      <section class="detail"><div class="eyebrow">SELECTED CONTROL</div><h2 id="control-title">Choose a handle</h2><p id="state-label" role="status" aria-live="polite">Select a handle on the truck or in the list below.</p><div id="measurements"></div>
+      <div class="modebar" aria-label="Handle interaction mode"><button id="move-mode" class="active" aria-pressed="true">Move</button><button id="turn-mode" aria-pressed="false">Turn</button></div>
+      <p id="instructions">Use Pump panel for a close view.</p><div id="actions"></div><p id="action-feedback" role="status" aria-live="polite"></p></section>
+      <section class="control-menu"><div class="eyebrow">PUMP CONTROLS</div><div id="control-list"></div></section>
+    </aside>
+  </main>
+</div><script type="module" src="/src/main.js"></script></body></html>

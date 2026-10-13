@@ -47,6 +47,27 @@ const rootMeshBounds = name => {
 const actualBacking = rootMeshBounds('Rear panel backing');
 const actualDeck = rootMeshBounds('Walkway deck');
 const actualRightTower = rootMeshBounds('Rear red compartment tower.001');
+const hoseDeck = rootMeshBounds(manifest.hoseBeds.deckNode);
+const pumpHousing = rootMeshBounds('Pump housing');
+assert.equal(manifest.hoseBeds.laneCount, 3);
+assert.equal(manifest.hoseBeds.dividerNodes.length, 4);
+const hoseDividers = manifest.hoseBeds.dividerNodes.map(rootMeshBounds);
+assert.ok(Math.abs(hoseDeck.min[0] - actualBacking.min[0]) < 1e-5, 'Hose deck reaches pump left edge');
+assert.ok(Math.abs(hoseDeck.max[0] - actualBacking.max[0]) < 1e-5, 'Hose deck reaches pump right edge');
+assert.ok(Math.abs(hoseDividers[0].min[0] - hoseDeck.min[0]) < 1e-5, 'No unintended left gap beside hose lanes');
+assert.ok(Math.abs(hoseDividers[3].max[0] - hoseDeck.max[0]) < 1e-5, 'Lanes reach full right edge without entering walkway');
+assert.ok(Math.abs(pumpHousing.min[0] - hoseDividers[0].min[0] - .0125) < 1e-5 && Math.abs(hoseDividers[3].max[0] - pumpHousing.max[0] - .0125) < 1e-5, 'Outer bed rims track actual housing sides with 12.5 mm backing trim');
+assert.ok(hoseDeck.max[0] <= actualDeck.min[0] + 1e-5);
+for (const lane of manifest.hoseBeds.lanes) {
+  const stacks = gltf.nodes.filter(n => n.name.startsWith(`Hose lane ${lane.index} canvas`));
+  assert.equal(stacks.length, 12, `Lane ${lane.index} remains a distinct complete hose stack`);
+  const left = hoseDividers[lane.index - 1].max[0], right = hoseDividers[lane.index].min[0];
+  for (const stack of stacks) {
+    const b = rootMeshBounds(stack.name);
+    assert.ok(b.min[0] > left && b.max[0] < right, `${stack.name} fits its lane`);
+    assert.ok(b.min[0] - left < .012 && right - b.max[0] < .012, `${stack.name} fills the widened lane`);
+  }
+}
 for (let i = 0; i < 3; i++) {
   assert.ok(Math.abs(actualBacking.min[i] - manifest.rearPanel.bounds.min[i]) < 1e-5);
   assert.ok(Math.abs(actualBacking.max[i] - manifest.rearPanel.bounds.max[i]) < 1e-5);

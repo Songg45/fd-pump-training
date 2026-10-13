@@ -30,4 +30,6 @@ All 13 control-root rotations/scales remain identity/unit in the GLB, and 12 con
 
 Validate with `node scripts/validate_b54_model.mjs`. No source photographs are embedded or served.
 
+The three hose-bed lanes now span the full pump assembly width. Their outer divider edges and support deck align at exported X = -0.63 and +0.25, eliminating the old unused left strip. Four divider plates define three distinct lanes; hose stacks and nozzles are centered in those lanes, with small clearances from the walls. The panel backing/deck extends 12.5 mm beyond the structural housing side on each edge as trim. The right-hand bed edge stops at the walkway boundary. `hoseBeds` metadata documents actual lane spans, and export checks compare the deck/divider/stack geometry to the real pump housing and preserve the passage obstruction checks. Lane widths and hardware clearances remain approximate.
+
 The validator checks all exported mesh bounds against the full-length passage interior (excluding narrow wall/threshold margins and shallow tread relief), in addition to checking that the real deck reaches the full silver toolbox extent. This verifies visible geometry rather than metadata alone; dimensions remain approximate and this is not a human-clearance certification.

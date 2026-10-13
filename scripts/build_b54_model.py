@@ -156,12 +156,21 @@ pipe('Front bumper nozzle riser',[(-.66,3.56,.68),(-.74,3.56,.87),(-.74,3.56,1.7
 cyl('Bumper nozzle tip',(-1.03,3.69,1.65),.066,.17,black)
 # Equipment on top: reel, hose beds and long tool boxes.
 box('Hose bed deck',(PUMP_CENTER_X,-1.715,2.13),(PUMP_BAY_WIDTH_M,2.89,.055),chrome)
-for x in [-.65,-.23,.4,.83]:box('Hose bed divider',(PUMP_CENTER_X+x*PUMP_LAYOUT_FACTOR,-2.275,2.36),(.025,1.74,.45),chrome)
-for bed,(x,w) in enumerate([(-.45,.35),(.075,.54),(.615,.33)]):
+HOSE_DIVIDER_THICKNESS_M=.025
+HOSE_BED_LEFT_X=PUMP_CENTER_X-PUMP_BAY_WIDTH_M/2
+HOSE_BED_RIGHT_X=PUMP_CENTER_X+PUMP_BAY_WIDTH_M/2
+divider_centers=[HOSE_BED_LEFT_X+HOSE_DIVIDER_THICKNESS_M/2+i*(PUMP_BAY_WIDTH_M-HOSE_DIVIDER_THICKNESS_M)/3 for i in range(4)]
+for i,x in enumerate(divider_centers):box('Hose bed divider '+str(i),(x,-2.275,2.36),(HOSE_DIVIDER_THICKNESS_M,1.74,.45),chrome)
+hose_lanes=[]
+for bed in range(3):
+ left=divider_centers[bed]+HOSE_DIVIDER_THICKNESS_M/2
+ right=divider_centers[bed+1]-HOSE_DIVIDER_THICKNESS_M/2
+ x=(left+right)/2; w=right-left-.016
+ hose_lanes.append({'index':bed+1,'centerX':x,'clearBoundsX':[left,right],'stackWidth':w})
  for j in range(6):
   for k in range(2):
-   box('Folded canvas hose',(PUMP_CENTER_X+(x+(random.random()-.5)*.025)*PUMP_LAYOUT_FACTOR,-2.76+k*.74,2.18+j*.055),(w*PUMP_LAYOUT_FACTOR,.73,.054),tan,.025)
- cyl('Preconnect nozzle',(PUMP_CENTER_X+x*PUMP_LAYOUT_FACTOR,-1.68,2.52),.045,.19,black)
+   box('Hose lane '+str(bed+1)+' canvas',(x+(random.random()-.5)*.004,-2.76+k*.74,2.18+j*.055),(w,.73,.054),tan,.025)
+ cyl('Preconnect nozzle',(x,-1.68,2.52),.045,.19,black)
 # Entire booster spool axis is fore/aft: winding plane X/Z, payout toward -X.
 for y in [-.97,-.27]:cyl('Hose reel flange',(PUMP_CENTER_X,y,2.64),.37,.035,chrome,'Y',verts=48)
 cyl('Reel hub',(PUMP_CENTER_X,-.62,2.64),.11,.8,chrome,'Y')
@@ -375,6 +384,7 @@ manifest={'schemaVersion':1,'asset':'b54.glb','description':'Photo-informed appr
 manifest['rearPanel']={'center':[PUMP_CENTER_X,PUMP_FACE_BOTTOM_M+PUMP_FACE_HEIGHT_M/2,-face_y],'normal':[0,0,1],'width':PUMP_BAY_WIDTH_M,'height':PUMP_FACE_HEIGHT_M,'bounds':{'min':[PUMP_CENTER_X-PUMP_BAY_WIDTH_M/2,PUMP_FACE_BOTTOM_M,-face_y-.12],'max':[PUMP_CENTER_X+PUMP_BAY_WIDTH_M/2,PUMP_FACE_BOTTOM_M+PUMP_FACE_HEIGHT_M,-face_y]},'boundsScope':'flush pump backing only; fittings and pulled handles project rearward toward +Z','widthStatus':'dimensions approximate; flush face and right-side walkway explicitly confirmed by user','suggestedCamera':[PUMP_CENTER_X,1.70,5.05],'suggestedTarget':[PUMP_CENTER_X,1.56,-face_y],'viewGuidance':'Pump face is flush with rear compartment ends. Side walkway is to its right (+X), not a recess surrounding the panel.'}
 manifest['rearBay']={'architecture':'flush pump face with separate right-side walkway','openingWidth':WALKWAY_WIDTH_M,'deckDepth':WALKWAY_DEPTH_M,'deckHeight':WALKWAY_TOP_M,'centerX':WALKWAY_CENTER_X,'side':'right / +X viewed from rear','rearPlaneZ':3.22,'pumpFaceZ':-face_y,'bounds':{'min':[WALKWAY_LEFT_X,WALKWAY_TOP_M,3.22-WALKWAY_DEPTH_M],'max':[REAR_BAY_OPENING_M/2,2.43,3.24]},'toolboxExtentZ':[-TOP_TOOLBOX_FRONT_Y,-TOP_TOOLBOX_REAR_Y],'toolboxNode':'Upper tool box.001','lengthRule':'walkway continues alongside the full right silver top toolbox, including rear entry threshold','dimensionsStatus':'toolbox geometry traced; dimensions approximate, full-length relationship user-confirmed','axialStrokeClearance':'0.6 m handle travel intentionally projects beyond the flush rear face; no threshold-containment constraint or operator-clearance simulation.'}
 manifest['boosterReel']={'spoolAxis':[0,0,1],'payoutDirection':list(BOOSTER_PAYOUT_DIRECTION),'payoutDescription':'left (-X), viewed from behind truck; complete spool axis runs fore/aft','center':[PUMP_CENTER_X,2.64,.62],'routingNode':'Booster left payout hose','axisNode':'Reel hub','geometryStatus':'orientation confirmed by user; supports and visible routing approximate'}
+manifest['hoseBeds']={'laneCount':3,'spanX':[HOSE_BED_LEFT_X,HOSE_BED_RIGHT_X],'deckNode':'Hose bed deck','dividerNodes':['Hose bed divider '+str(i) for i in range(4)],'lanes':hose_lanes,'layout':'three distinct lanes span the full pump assembly width; outer divider edges align with pump backing/deck edges; right walkway remains clear','dimensionsStatus':'approximate clearances; full-width relationship confirmed by user'}
 (OUT/'b54-controls.json').write_text(json.dumps(manifest,indent=2)+'\n')
 # QA scene only. Saved model and GLB above remain free of stage objects.
 scene=bpy.context.scene; scene.render.engine='CYCLES'; scene.cycles.samples=24

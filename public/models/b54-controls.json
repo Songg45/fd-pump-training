@@ -1,0 +1,626 @@
+{
+  "schemaVersion": 1,
+  "asset": "b54.glb",
+  "description": "Photo-informed approximate B54 Ford F-550 brush truck; not dimensionally exact; no pump physics",
+  "units": "meters",
+  "coordinateSystem": {
+    "exported": "right handed, +Y up, front -Z, rear +Z, rear-view right +X",
+    "blender": "X right in rear view, +Y front, +Z up",
+    "mapping": "glTF = [Blender X, Blender Z, -Blender Y]",
+    "controlRoots": "identity rotation and unit scale; position axes are exported parent/local basis; capture initial position and quaternion, then apply offsets, never overwrite base placement"
+  },
+  "rearPanel": {
+    "center": [
+      -0.19,
+      1.56,
+      3.22
+    ],
+    "normal": [
+      0,
+      0,
+      1
+    ],
+    "width": 0.88,
+    "height": 1.08,
+    "bounds": {
+      "min": [
+        -0.63,
+        1.02,
+        3.1
+      ],
+      "max": [
+        0.25,
+        2.1,
+        3.22
+      ]
+    },
+    "boundsScope": "flush pump backing only; fittings and pulled handles project rearward toward +Z",
+    "widthStatus": "dimensions approximate; flush face and right-side walkway explicitly confirmed by user",
+    "suggestedCamera": [
+      -0.19,
+      1.7,
+      5.05
+    ],
+    "suggestedTarget": [
+      -0.19,
+      1.56,
+      3.22
+    ],
+    "viewGuidance": "Pump face is flush with rear compartment ends. Side walkway is to its right (+X), not a recess surrounding the panel."
+  },
+  "controls": [
+    {
+      "id": "tank_fill",
+      "node": "ctrl_tank_fill",
+      "label": "TANK FILL RECIRCULATE",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_tank_fill",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "user confirmed push/pull and positive lock"
+    },
+    {
+      "id": "hose_reel",
+      "node": "ctrl_hose_reel",
+      "label": "HOSE REEL",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_hose_reel",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "user confirmed push/pull and positive lock"
+    },
+    {
+      "id": "right_preconnect",
+      "node": "ctrl_right_preconnect",
+      "label": "RIGHT 1 1/2 PRECONNECT",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_right_preconnect",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "user confirmed push/pull and positive lock"
+    },
+    {
+      "id": "discharge_1",
+      "node": "ctrl_discharge_1",
+      "label": "1 IN DISCHARGE",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_discharge_1",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "user confirmed push/pull and positive lock"
+    },
+    {
+      "id": "center_preconnect",
+      "node": "ctrl_center_preconnect",
+      "label": "CENTER 1 1/2 PRECONNECT",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_center_preconnect",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "user confirmed push/pull and positive lock"
+    },
+    {
+      "id": "discharge_2_5",
+      "node": "ctrl_discharge_2_5",
+      "label": "2 1/2 DISCHARGE",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_discharge_2_5",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "user confirmed push/pull and positive lock"
+    },
+    {
+      "id": "left_preconnect",
+      "node": "ctrl_left_preconnect",
+      "label": "LEFT 1 1/2 PRECONNECT",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_left_preconnect",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "user confirmed push/pull and positive lock"
+    },
+    {
+      "id": "tank_valve",
+      "node": "ctrl_tank_valve",
+      "label": "TANK VALVE PULL TO CLOSE",
+      "type": "pushPullLock",
+      "enabled": true,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "open"
+        },
+        {
+          "value": 0.6,
+          "state": "closed"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_tank_valve",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "reverse mapping confirmed; lock/travel unconfirmed"
+    },
+    {
+      "id": "hale_prime",
+      "node": "ctrl_hale_prime",
+      "label": "HALE",
+      "type": "inactive",
+      "enabled": false,
+      "positionAxis": [
+        0,
+        0,
+        1
+      ],
+      "positionRange": [
+        0,
+        0.6
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "disengaged / closed"
+        },
+        {
+          "value": 0.6,
+          "state": "engaged / open"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_hale_prime",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all axial displacement; preserve exact extension while locked",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "travelStatus": "provisional approximately arm length; not measured",
+      "behaviorStatus": "HALE PRIME has not been operated by user; interaction must remain disabled"
+    },
+    {
+      "id": "suction",
+      "node": "ctrl_suction",
+      "label": "SUCTION",
+      "type": "twoStateSlider",
+      "enabled": true,
+      "positionAxis": [
+        1,
+        0,
+        0
+      ],
+      "positionRange": [
+        0.0,
+        0.2905263157894737
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0.0,
+          "state": "CLOSED / left"
+        },
+        {
+          "value": 0.2905263157894737,
+          "state": "OPEN / right"
+        }
+      ],
+      "snap": "always snap to nearest endpoint on release; no stable intermediate state",
+      "travelStatus": "visual estimate; behavior user confirmed"
+    },
+    {
+      "id": "foam",
+      "node": "ctrl_foam",
+      "label": "V-Series Foam",
+      "type": "threeStateSliderLock",
+      "enabled": true,
+      "positionAxis": [
+        1,
+        0,
+        0
+      ],
+      "positionRange": [
+        -0.0585263157894737,
+        0.0585263157894737
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": -0.0585263157894737,
+          "state": "prime / far left"
+        },
+        {
+          "value": 0.0,
+          "state": "off / center"
+        },
+        {
+          "value": 0.0585263157894737,
+          "state": "operate / far right"
+        }
+      ],
+      "lock": {
+        "rotationNode": "ctrl_foam",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "unlockedAngle": 0,
+        "lockedAngle": 1.5707963267948966,
+        "initialLocked": false,
+        "blocks": "all slider translation while locked; preserve exact position",
+        "turnToUnlockBeforeAxialMotion": true
+      },
+      "behaviorStatus": "user confirmed; turn angles are provisional"
+    },
+    {
+      "id": "throttle",
+      "node": "ctrl_throttle",
+      "label": "THROTTLE",
+      "type": "rotary",
+      "enabled": true,
+      "rotationAxis": [
+        0,
+        0,
+        1
+      ],
+      "rotationRange": [
+        0,
+        6.283185307179586
+      ],
+      "neutral": 0,
+      "positiveDirection": "counterclockwise as viewed from rear: turn left opens/increases",
+      "negativeDirection": "clockwise: turn right closes/decreases",
+      "boundsStatus": "one-turn visual range provisional; actual number of turns unknown"
+    },
+    {
+      "id": "engine_selector",
+      "node": "ctrl_engine_selector",
+      "label": "OFF / RUN / START",
+      "type": "threePositionRotary",
+      "enabled": true,
+      "rotationAxis": [
+        0,
+        0,
+        1
+      ],
+      "rotationRange": [
+        -0.65,
+        0
+      ],
+      "neutral": 0,
+      "endpoints": [
+        {
+          "value": 0,
+          "state": "OFF"
+        },
+        {
+          "value": -0.325,
+          "state": "RUN"
+        },
+        {
+          "value": -0.65,
+          "state": "START"
+        }
+      ],
+      "springReturn": false,
+      "boundsStatus": "visual selector angles provisional; plain three-position behavior user confirmed"
+    }
+  ],
+  "staticItems": [
+    "gauges",
+    "level indicators",
+    "emergency stop",
+    "foam power switches",
+    "drains",
+    "caps",
+    "compartment doors"
+  ],
+  "warnings": [
+    "No concealed pump internals modeled",
+    "Travel, dimensions and lock angles approximate",
+    "HALE PRIME inactive pending confirmation",
+    "Tank valve reverse mapping must stay separate",
+    "Locks prevent absolutely all translation, not merely add drag resistance",
+    "No spring return for OFF/RUN/START selector"
+  ],
+  "rearBay": {
+    "architecture": "flush pump face with separate right-side walkway",
+    "openingWidth": 0.38,
+    "deckDepth": 3.1000000000000005,
+    "deckHeight": 1.0,
+    "centerX": 0.44,
+    "side": "right / +X viewed from rear",
+    "rearPlaneZ": 3.22,
+    "pumpFaceZ": 3.22,
+    "bounds": {
+      "min": [
+        0.25,
+        1.0,
+        0.11999999999999966
+      ],
+      "max": [
+        0.63,
+        2.43,
+        3.24
+      ]
+    },
+    "toolboxExtentZ": [
+      0.11999999999999988,
+      3.1399999999999997
+    ],
+    "toolboxNode": "Upper tool box.001",
+    "lengthRule": "walkway continues alongside the full right silver top toolbox, including rear entry threshold",
+    "dimensionsStatus": "toolbox geometry traced; dimensions approximate, full-length relationship user-confirmed",
+    "axialStrokeClearance": "0.6 m handle travel intentionally projects beyond the flush rear face; no threshold-containment constraint or operator-clearance simulation."
+  },
+  "boosterReel": {
+    "spoolAxis": [
+      0,
+      0,
+      1
+    ],
+    "payoutDirection": [
+      -1,
+      0,
+      0
+    ],
+    "payoutDescription": "left (-X), viewed from behind truck; complete spool axis runs fore/aft",
+    "center": [
+      -0.19,
+      2.64,
+      0.62
+    ],
+    "routingNode": "Booster left payout hose",
+    "axisNode": "Reel hub",
+    "geometryStatus": "orientation confirmed by user; supports and visible routing approximate"
+  }
+}

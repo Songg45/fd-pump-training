@@ -1,2 +1,6 @@
 /Pictures/B54/
+/.codex-remote-attachments/
 /node_modules/
+/.qa/
+*.blend1
+dist/

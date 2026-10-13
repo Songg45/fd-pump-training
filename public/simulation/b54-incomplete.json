@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "profileId": "b54-pending-calibration",
+  "version": "1.0.0",
+  "profileStatus": "incomplete",
+  "units": "SI",
+  "label": "B54 confirmed record — incomplete, not executable",
+  "identity": {
+    "pumpMake": "Waterous",
+    "pumpModel": "E511-A",
+    "pumpSerial": "119059",
+    "manufactured": "2004-10",
+    "nameplateMaxDischargePsig": 220
+  },
+  "drive": {
+    "architecture": "dedicated-motor-geared-pump",
+    "engineModel": null,
+    "idleRpm": null,
+    "maximumRpm": null,
+    "pumpToEngineSpeedRatio": null,
+    "powerCurve": null,
+    "throttleToSpeedCurve": null,
+    "startPolicy": "unconfirmed"
+  },
+  "pump": {
+    "curve": null,
+    "curveSpeedBasis": null,
+    "referenceRpm": null,
+    "validFlowRangeM3s": null,
+    "efficiencyCurve": null,
+    "npshrCurveM": null,
+    "stoppedFlowPolicy": "unconfirmed"
+  },
+  "tank": {
+    "capacityM3": 1.1356235352,
+    "levelVolumeCurve": null,
+    "outletElevationM": null,
+    "unusableVolumeM3": null,
+    "overflowPolicy": "unconfirmed",
+    "returnTermination": "unconfirmed"
+  },
+  "preconnectHoseClasses": [
+    {
+      "id": "preconnect-1-inch",
+      "lengthM": 30.48,
+      "nominalDiameterM": 0.0254,
+      "internalDiameterM": null,
+      "branchIds": [],
+      "nozzleCurve": null
+    },
+    {
+      "id": "preconnect-1-and-a-half-inch",
+      "lengthM": 30.48,
+      "nominalDiameterM": 0.0381,
+      "internalDiameterM": null,
+      "branchIds": [],
+      "nozzleCurve": null
+    }
+  ],
+  "boosterReel": {
+    "lengthM": null,
+    "internalDiameterM": null,
+    "nozzleCurve": null
+  },
+  "network": {
+    "topologyStatus": "partiallyConfirmed",
+    "confirmedControlPaths": {
+      "tank_valve": "onboardTankToPumpIntake",
+      "tank_fill": "pumpDischargeToOnboardTank"
+    },
+    "nodes": [],
+    "edges": [],
+    "controlBindings": [],
+    "sensorBindings": [],
+    "checkValves": null,
+    "bypassPaths": null
+  },
+  "features": {
+    "waterPrimerControl": "inactive",
+    "foamSimulation": false,
+    "waterHammer": false
+  },
+  "provenance": [
+    {
+      "parameters": [
+        "identity"
+      ],
+      "status": "photoConfirmed",
+      "source": "Pictures/B54/20261012_212049.jpg; original pump nameplate photograph"
+    },
+    {
+      "parameters": [
+        "drive.architecture"
+      ],
+      "status": "manufacturerFamily",
+      "source": "Waterous F-2390, printed page 3, https://www.waterousco.com/media/pdfs/F2390.pdf; dedicated gear-driven centrifugal E500 diesel family, not serial-specific performance"
+    },
+    {
+      "parameters": [
+        "tank.capacityM3",
+        "preconnectHoseClasses.*.lengthM",
+        "preconnectHoseClasses.*.nominalDiameterM",
+        "network.confirmedControlPaths"
+      ],
+      "status": "truckConfirmed",
+      "source": "User confirmation on 2026-10-13: 300 US gallons; 100 ft preconnects in nominal 1 and 1.5 inch sizes; lower tank supply and same-tank discharge return"
+    },
+    {
+      "parameters": [
+        "drive.engineModel",
+        "drive.idleRpm",
+        "drive.maximumRpm",
+        "drive.pumpToEngineSpeedRatio",
+        "drive.powerCurve",
+        "drive.throttleToSpeedCurve",
+        "drive.startPolicy",
+        "pump",
+        "tank.levelVolumeCurve",
+        "tank.outletElevationM",
+        "tank.unusableVolumeM3",
+        "tank.overflowPolicy",
+        "tank.returnTermination",
+        "preconnectHoseClasses.*.internalDiameterM",
+        "preconnectHoseClasses.*.branchIds",
+        "preconnectHoseClasses.*.nozzleCurve",
+        "boosterReel",
+        "network.nodes",
+        "network.edges",
+        "network.controlBindings",
+        "network.sensorBindings",
+        "network.checkValves",
+        "network.bypassPaths"
+      ],
+      "status": "unknown",
+      "source": "Await apparatus records, pump curve, hose/nozzle inventory and plumbing confirmation"
+    }
+  ],
+  "notes": [
+    "220 PSIG is equipment nameplate metadata; never a target, pump curve, relief setting or pressure clamp.",
+    "100 ft lengths are not assigned to any particular branch or the booster reel. Nominal hose sizes do not establish internal diameters.",
+    "No current engine, gear ratio, RPM limits or serial-specific performance has been confirmed."
+  ]
+}

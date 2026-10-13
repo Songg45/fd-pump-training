@@ -1,6 +1,6 @@
 # B54 pump panel practice
 
-A local Three.js viewer of the photo-informed B54 Ford F-550 brush truck. Orbit the complete model, move to the rear pump panel, and operate the visible 3D handles. This is control familiarization: there is no hydraulic, engine, pressure, or pump simulation. Gauges and unconfirmed switches remain static.
+A local Three.js viewer of the photo-informed B54 Ford F-550 brush truck. Orbit the complete model, move to the rear pump panel, and operate the visible 3D handles. The browser provides control familiarization; hydraulics are not connected to the viewer. Gauges and unconfirmed switches remain static. A separate Phase 1 headless hydraulic core now supports a clearly labeled synthetic generic exercise; it makes no calibrated B54 performance claims.
 
 ## Run locally
 
@@ -41,6 +41,8 @@ npm run preview
 Model proportions, push/pull travel (about 0.6 m), lock angles, throttle one-turn range, and selector visual angles are approximate. The lower tank valve's travel and locking mechanics are provisional. See [models/README.md](models/README.md) for source/model details.
 
 ## Implementation and verification
+
+Run `npm run simulate:water` for the deterministic headless exercise. [Phase 1 core documentation](docs/water-flow-core.md) explains the profile, control-adapter, solver and fixed-step APIs, known limitations, and validation coverage. The separate [B54 record](public/simulation/b54-incomplete.json) preserves confirmed nameplate/tank/hose/path facts and remains incomplete and nonexecutable. The [generic preset](public/simulation/generic-training.json) supplies all explicitly assumed numerical values. `npm test` includes the new numerical/conservation tests together with the existing viewer regressions; no browser simulation scheduler or dynamic instruments are enabled.
 
 `src/control-state.js` centralizes movement bounds, positive locks, snap positions, and status descriptions. `src/control-pose.js` preserves the model's rest transforms and keeps slider motion independent of lock rotation. `tests/controls.test.js` tests all enabled locking controls, unlock behavior, boundary clamping, suction and foam positions, tank valve mapping, persistent selector positions, throttle bounds, and inactive primer behavior. It also loads the actual GLB with Three.js and verifies all named handles, visible lock rotation, exact locked root positions, parent-basis slider motion, and the directly rear-on pull gesture. `scripts/validate_b54_model.mjs` checks the actual GLB's named roots and model structure.
 

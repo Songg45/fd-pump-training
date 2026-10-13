@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 1,
+  "profileId": "generic-water-training",
+  "version": "1.0.0",
+  "profileStatus": "genericTraining",
+  "label": "Synthetic generic training network — NOT calibrated B54 performance",
+  "units": "SI",
+  "drive": {
+    "mode": "scenarioControlled",
+    "speedBasis": "normalized-reference"
+  },
+  "pump": {
+    "curve": {
+      "type": "quadratic",
+      "speedBasis": "normalized-reference",
+      "ordinate": "totalHeadM",
+      "shutoffHeadM": 100,
+      "coefficientS2M5": 1000000,
+      "maxFlowM3s": 0.01
+    },
+    "velocityHeadPolicy": "negligible",
+    "stoppedPolicy": "passiveResistance",
+    "stoppedResistanceS2M5": 300000,
+    "passiveMaxFlowM3s": 0.03,
+    "ratingPa": null,
+    "dischargeGaugeElevationM": 0
+  },
+  "tank": {
+    "capacityM3": 1,
+    "unusableVolumeM3": 0,
+    "areaM2": 1,
+    "bottomElevationM": 0,
+    "returnTermination": "submerged",
+    "returnElevationM": 0,
+    "overflowPolicy": "spill",
+    "pickupRecovery": "scenarioReset"
+  },
+  "network": {
+    "topology": "parallel-forward",
+    "nodes": [
+      "tank",
+      "external",
+      "suction",
+      "discharge",
+      "atmosphere"
+    ],
+    "sources": [
+      {
+        "id": "tank-pickup",
+        "from": "tank",
+        "to": "suction",
+        "controlId": "tank_valve",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 10000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.01,
+          "exponent": 1
+        },
+        "kind": "tank"
+      },
+      {
+        "id": "external-intake",
+        "from": "external",
+        "to": "suction",
+        "controlId": "suction",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 200000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+          "exponent": 1
+        },
+        "kind": "external",
+        "headM": 20
+      }
+    ],
+    "outlets": [
+      {
+        "id": "hose_reel",
+        "from": "discharge",
+        "to": "atmosphere",
+        "controlId": "hose_reel",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 1000000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+          "exponent": 1
+        },
+        "termination": "openNozzle",
+        "elevationM": 0,
+        "nozzle": {
+          "type": "fixedOrifice",
+          "diameterM": 0.009,
+          "dischargeCoefficient": 0.95
+        }
+      },
+      {
+        "id": "right_preconnect",
+        "from": "discharge",
+        "to": "atmosphere",
+        "controlId": "right_preconnect",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 1000000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+          "exponent": 1
+        },
+        "termination": "openNozzle",
+        "elevationM": 0,
+        "nozzle": {
+          "type": "fixedOrifice",
+          "diameterM": 0.009,
+          "dischargeCoefficient": 0.95
+        }
+      },
+      {
+        "id": "discharge_1",
+        "from": "discharge",
+        "to": "atmosphere",
+        "controlId": "discharge_1",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 1000000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+          "exponent": 1
+        },
+        "termination": "openNozzle",
+        "elevationM": 0,
+        "nozzle": {
+          "type": "fixedOrifice",
+          "diameterM": 0.009,
+          "dischargeCoefficient": 0.95
+        }
+      },
+      {
+        "id": "center_preconnect",
+        "from": "discharge",
+        "to": "atmosphere",
+        "controlId": "center_preconnect",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 1000000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+          "exponent": 1
+        },
+        "termination": "openNozzle",
+        "elevationM": 0,
+        "nozzle": {
+          "type": "fixedOrifice",
+          "diameterM": 0.009,
+          "dischargeCoefficient": 0.95
+        }
+      },
+      {
+        "id": "discharge_2_5",
+        "from": "discharge",
+        "to": "atmosphere",
+        "controlId": "discharge_2_5",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 1000000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+          "exponent": 1
+        },
+        "termination": "openNozzle",
+        "elevationM": 0,
+        "nozzle": {
+          "type": "fixedOrifice",
+          "diameterM": 0.009,
+          "dischargeCoefficient": 0.95
+        }
+      },
+      {
+        "id": "left_preconnect",
+        "from": "discharge",
+        "to": "atmosphere",
+        "controlId": "left_preconnect",
+        "direction": "forwardChecked",
+        "checkValve": "assumedDemo",
+        "loss": {
+          "type": "quadratic",
+          "resistanceS2M5": 1000000
+        },
+        "valve": {
+          "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+          "exponent": 1
+        },
+        "termination": "openNozzle",
+        "elevationM": 0,
+        "nozzle": {
+          "type": "fixedOrifice",
+          "diameterM": 0.009,
+          "dischargeCoefficient": 0.95
+        }
+      }
+    ],
+    "return": {
+      "id": "tank-return",
+      "from": "discharge",
+      "to": "tank",
+      "controlId": "tank_fill",
+      "direction": "forwardChecked",
+      "checkValve": "assumedDemo",
+      "loss": {
+        "type": "quadratic",
+        "resistanceS2M5": 900000
+      },
+      "valve": {
+        "fullConductanceM3sPerSqrtM": 0.0031622776601683794,
+        "exponent": 1
+      }
+    },
+    "controlBindings": [
+      {
+        "controlId": "tank_fill",
+        "root": "ctrl_tank_fill"
+      },
+      {
+        "controlId": "hose_reel",
+        "root": "ctrl_hose_reel"
+      },
+      {
+        "controlId": "right_preconnect",
+        "root": "ctrl_right_preconnect"
+      },
+      {
+        "controlId": "discharge_1",
+        "root": "ctrl_discharge_1"
+      },
+      {
+        "controlId": "center_preconnect",
+        "root": "ctrl_center_preconnect"
+      },
+      {
+        "controlId": "discharge_2_5",
+        "root": "ctrl_discharge_2_5"
+      },
+      {
+        "controlId": "left_preconnect",
+        "root": "ctrl_left_preconnect"
+      },
+      {
+        "controlId": "tank_valve",
+        "root": "ctrl_tank_valve"
+      },
+      {
+        "controlId": "suction",
+        "root": "ctrl_suction"
+      },
+      {
+        "controlId": "foam",
+        "root": "ctrl_foam"
+      },
+      {
+        "controlId": "throttle",
+        "root": "ctrl_throttle"
+      },
+      {
+        "controlId": "engine_selector",
+        "root": "ctrl_engine_selector"
+      }
+    ]
+  },
+  "features": {
+    "directFill": false,
+    "foam": false,
+    "priming": false
+  },
+  "solver": {
+    "fixedStepS": 0.02,
+    "characteristicFlowM3s": 0.01,
+    "absoluteFlowToleranceM3s": 1e-9,
+    "relativeFlowTolerance": 0.000001,
+    "headToleranceM": 0.0001,
+    "iterations": 48,
+    "minSuctionHeadM": -10
+  },
+  "provenance": [
+    {
+      "parameters": [
+        "*"
+      ],
+      "status": "assumedDemo",
+      "source": "Original software training fixture, 2026-10-13. All numerical hydraulics, tank geometry, synthetic pump curve, nozzle orifices, check valves and external boundary are invented training assumptions, not B54 estimates."
+    }
+  ],
+  "notes": [
+    "All six branch bindings are present. Their identical synthetic loss/orifice settings do not assign real hose lengths, diameters or nozzle models to B54.",
+    "A source plus finite supply-line resistance represents the external source. It is not a real hydrant rating.",
+    "Each path assumes an explicit forward check valve. B54 check valves and stopped-pump behavior remain unknown.",
+    "Scenario provides filled pump/hoses and imposed normalized speed. No engine, starter, primer, power limit, air, NPSH, hose-storage or thermal model."
+  ]
+}

@@ -2,7 +2,7 @@
 
 Build a small, deterministic hydraulic simulation behind the existing B54 controls. The first usable version should let a learner supply water from a tank, change throttle, open and lock individual outlets, watch the outlets affect one another, and see the tank drain or recirculate. Calculate pressure and flow together from the connected water paths; neither throttle position nor handle extension should directly set a gauge reading.
 
-Start with a clearly labeled **generic training preset** and an already filled pump and hose layout. Then calibrate a separate B54 profile as truck records become available. This allows useful development without presenting invented pump curves, tank capacity, or operating sequences as B54 facts. Manufacturer instructions and department procedures remain the authority for operating the actual truck; this plan concerns simulator behavior.
+Start with a clearly labeled **generic training preset** and an already filled pump and hose layout. Then calibrate a separate B54 profile using the confirmed tank and hose information below as truck records become available. This allows useful development without presenting invented pump curves or operating sequences as B54 facts. Manufacturer instructions and department procedures remain the authority for operating the actual truck; this plan concerns simulator behavior.
 
 This is a plan only. It does not enable hydraulics, alter control mechanics, or require changes to the accepted truck geometry.
 
@@ -15,6 +15,9 @@ This is a plan only. It does not enable hydraulics, alter control mechanics, or 
 | Later model documentation | Waterous's current E501-C/E511-C page describes the Kubota version. [Waterous E501-C and E511-C](https://www.waterousco.com/product/e501c-e511c/) | Do not copy the C model's performance, engine, or electronic controls into the A model. No serial-specific B54 performance curve is established here. |
 | Panel labels | Original photograph `Pictures/B54/20261012_211603.jpg` shows suction CLOSE left / OPEN right, TANK VALVE PULL TO CLOSE, TANK FILL RECIRCULATE, labeled outlets, a diesel-fuel label, intake/pressure instruments, and additional line gauges. | Directions and labels can be preserved. Concealed routing, check valves, gauge taps, and actual diameters still need a plumbing drawing or confirmation. |
 | Foam system | Original photograph `Pictures/B54/20261012_212051.jpg` identifies a separate Hale V-Series foam system and depicts concentrate supply, pump, return, check valve, and venturi. | Keep water pumping and foam proportioning as separate subsystems. The foam PRIME position must never prime the main water pump. |
+| Water tank | User confirmation on October 13, 2026: 300-gallon capacity. Use US gallons for this B54 profile: 300 US gal = 1.1356235352 m³. | Record the rated capacity as truck-confirmed. Usable volume, pickup height, tank shape, and overflow behavior remain separate inputs. |
+| Preconnect hoses | User confirmation on October 13, 2026: standard 100-foot preconnects in both 1-inch and 1½-inch sizes. | Record two nominal hose classes, each 30.48 m long. Confirm individual branch assignments, nozzle ratings, and loss characteristics before calibrating their flow. This does not establish the booster-reel hose length. |
+| Tank connections | User confirmed both requested connections on October 13, 2026: the lower tank valve supplies the pump from the onboard tank; TANK FILL / RECIRCULATE returns pump-discharge water to that same tank. | Treat these two path functions as truck-confirmed. Detailed piping, check valves, return termination, and any additional fill/bypass paths remain to be established. |
 | Current application | `README.md`, `public/models/b54-controls.json`, `src/control-state.js`, `src/control-pose.js`, `src/main.js`, and `tests/controls.test.js`. There are 13 control roots, 12 active controls, static instruments, and no hydraulic or engine model. | Add a pure simulation core and a small integration layer. Retain the existing control contract and regression tests. |
 
 The manufacturer's architecture supports a dedicated motor-pump model; that conclusion does not come from the OFF/RUN/START selector alone. The approved flush pump face, right walkway, three hose-bed lanes, and left-payout reel remain the visual arrangement. Their approximate mesh dimensions are not plumbing measurements. Original photographs stay in the ignored source folder and are not added to browser assets.
@@ -83,11 +86,11 @@ flowchart LR
   R --> T
 ```
 
-This is the **proposed training topology**. The arrows describe intended forward paths, not evidence that every path has a check valve. Each edge needs an explicit direction policy: bidirectional, one-way with a specified check valve, closed, or unsupported pending confirmation. In particular, do not silently add tank isolation, an automatic relief/bypass, or a direct external-fill connection.
+The tank-to-pump and pump-discharge-to-tank path functions are user-confirmed. The rest of this diagram is the **proposed training topology**. The arrows describe intended forward paths, not evidence that every path has a check valve. Each edge needs an explicit direction policy: bidirectional, one-way with a specified check valve, closed, or unsupported pending confirmation. In particular, do not silently add tank isolation, an automatic relief/bypass, or a direct external-fill connection.
 
 For the first demo, one active water source is sufficient. Leave the external-intake path configurable and introduce simultaneous tank/external supply after its direction rules are tested. A pressurized external source should have a pressure-versus-flow characteristic or a source pressure plus finite supply-line resistance. An unlimited constant-pressure source is useful as a named test fixture, but must not masquerade as a real hydrant.
 
-Each outlet configuration needs a termination: closed cap, open pipe, hose with closed nozzle, or hose with an open nozzle. Scenario setup supplies these states while the modeled caps and nozzles remain noninteractive. Avoid a scenario where a visibly capped connection emits water without an explanation. The hose reel needs the total hose length in the flowing path, including wound hose if it remains connected in series; the visible paid-out distance is not automatically the loss length.
+Each outlet configuration needs a termination: closed cap, open pipe, hose with closed nozzle, or hose with an open nozzle. Scenario setup supplies these states while the modeled caps and nozzles remain noninteractive. Avoid a scenario where a visibly capped connection emits water without an explanation. The confirmed 100-foot, 1-inch and 1½-inch preconnect classes supply nominal length/size information; do not assign either class to an unidentified branch or use nominal size as measured internal diameter. The hose reel needs its own total hose length in the flowing path, including wound hose if it remains connected in series; the visible paid-out distance is not automatically the loss length.
 
 ### Quantities and equations
 
@@ -308,14 +311,36 @@ An initial B54 record can contain unknown fields without being executable. A sep
     "stoppedFlowPolicy": "unconfirmed"
   },
   "tank": {
-    "capacityM3": null,
+    "capacityM3": 1.1356235352,
     "levelVolumeCurve": null,
     "outletElevationM": null,
     "unusableVolumeM3": null,
     "overflowPolicy": "unconfirmed"
   },
+  "preconnectHoseClasses": [
+    {
+      "id": "preconnect-1-inch",
+      "lengthM": 30.48,
+      "nominalDiameterM": 0.0254,
+      "internalDiameterM": null,
+      "branchIds": [],
+      "nozzleCurve": null
+    },
+    {
+      "id": "preconnect-1-and-a-half-inch",
+      "lengthM": 30.48,
+      "nominalDiameterM": 0.0381,
+      "internalDiameterM": null,
+      "branchIds": [],
+      "nozzleCurve": null
+    }
+  ],
   "network": {
-    "topologyStatus": "proposed",
+    "topologyStatus": "partiallyConfirmed",
+    "confirmedControlPaths": {
+      "tank_valve": "onboardTankToPumpIntake",
+      "tank_fill": "pumpDischargeToOnboardTank"
+    },
     "nodes": [],
     "edges": [],
     "controlBindings": [],
@@ -326,7 +351,17 @@ An initial B54 record can contain unknown fields without being executable. A sep
     "foamSimulation": false,
     "waterHammer": false
   },
-  "provenance": []
+  "provenance": [
+    {
+      "parameters": [
+        "tank.capacityM3",
+        "preconnectHoseClasses",
+        "network.confirmedControlPaths"
+      ],
+      "status": "truckConfirmed",
+      "source": "User confirmation on 2026-10-13"
+    }
+  ]
 }
 ```
 
@@ -403,13 +438,13 @@ Track water, concentrate, and solution as distinct quantities with a stated conc
 
 ## Priority questions and next work
 
-The following information changes numerical accuracy or procedural scope; it does not block the generic phase 1 and phase 2 work.
+Tank capacity, the two 100-foot preconnect hose classes, and both tank path functions are now confirmed. The user may obtain apparatus or pump documents later in the week; those can supply the remaining calibration inputs. The following information changes numerical accuracy or procedural scope; it does not block the generic phase 1 and phase 2 work.
 
 | Priority | Information needed | Best evidence | What it unlocks |
 | --- | --- | --- | --- |
 | 1 | B54 pump performance curve, reference speed, present engine model, pump/engine ratio, idle/governed range | Waterous records for E511-A serial 119059, engine plate, apparatus documentation, existing pump-test records | Real pressure/flow/RPM behavior and power limits |
-| 1 | Tank capacity, unusable volume, outlet/fill heights, tank-to-pump and return routing, check valves, bypass/relief hardware | Apparatus builder's plumbing schematic and tank specification; confirmed labeled inspection | Correct depletion, source switching, recirculation, overflow, and stopped-pump behavior |
-| 1 | Each preconnect/reel hose length and internal diameter, nozzle make/model/settings, branch plumbing losses | Hose/nozzle inventory and manufacturer data; existing measured loss data | Credible individual line flows and required pressure relationships |
+| 1 | Unusable tank volume, outlet/fill heights, detailed tank path losses and return termination, check valves, bypass/relief hardware | Apparatus builder's plumbing schematic and tank specification; confirmed labeled inspection | Correct depletion, source switching, recirculation, overflow, and stopped-pump behavior |
+| 1 | Assignment of the confirmed preconnect hose classes to branches, internal diameter/loss data, booster-reel length/size, nozzle make/model/settings, branch plumbing losses | Hose/nozzle inventory and manufacturer data; existing measured loss data | Credible individual line flows and required pressure relationships |
 | 2 | Gauge ranges and actual pressure-tap locations; what each line gauge measures | Instrument close-ups plus plumbing/sensor map | Correct dynamic panel gauges and meaningful exercise readings |
 | 2 | Exact engine start/reset/glow sequence and HALE water-primer operation | B54 operating documentation and knowledgeable operator confirmation | Procedural starting and priming exercises without inventing actions |
 | 2 | Valve opening characteristics versus accepted handle extension | Valve/linkage identification or approved observations | Meaningful partly open settings and restriction behavior |
